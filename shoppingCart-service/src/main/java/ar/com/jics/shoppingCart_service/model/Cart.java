@@ -19,5 +19,5 @@ public class Cart {
     private Long id;
     private double total;
     @OneToMany
-    private List<CartItem> cartItems;
+    private List<CartItem> productsList;
 }

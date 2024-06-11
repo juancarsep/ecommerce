@@ -16,12 +16,18 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "cartID")
+    private Cart cart;
+
     @OneToOne
     private ProductDTO product;
     private int itemsTotal;
     private double totalPrice;
 
 
+  /*
     public void addItem(){
         this.itemsTotal += 1;
         updatePrice();
@@ -35,4 +41,5 @@ public class CartItem {
     public void updatePrice(){
         this.totalPrice = itemsTotal * product.getPrice();
     }
+    */
 }

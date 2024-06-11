@@ -10,6 +10,6 @@ public interface IProductsServie {
     public List<Product> getAllProducts();
     public void updateProduct(Long id, Product prod);
     public void deleteProductById(Long id);
-    public void getProductByName(String name);
-    public void getProductByBrand(String brand);
+    public List<Product> getProductByName(String name);
+    public List<Product> getProductByBrand(String brand);
 }

@@ -1,9 +1,12 @@
 package ar.com.jics.shoppingCart_service.controller;
 
+import ar.com.jics.shoppingCart_service.dto.CartItemDTO;
 import ar.com.jics.shoppingCart_service.model.Cart;
 import ar.com.jics.shoppingCart_service.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/cart")
@@ -18,8 +21,8 @@ public class CartController {
     }
 
     @PostMapping("/")
-    public String saveCart(@RequestBody Cart cart){
-        service.saveCart(cart);
+    public String saveCart(@RequestBody List<CartItemDTO> items){
+        service.saveCart(items);
         return "Cart successfully saved";
     }
 

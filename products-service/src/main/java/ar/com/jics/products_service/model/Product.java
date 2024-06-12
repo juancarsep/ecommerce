@@ -19,5 +19,5 @@ public class Product {
     private Long id;
     private String name;
     private String brand;
-    private String price;
+    private double price;
 }

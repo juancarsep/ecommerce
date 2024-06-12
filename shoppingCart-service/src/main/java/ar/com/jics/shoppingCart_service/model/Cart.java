@@ -20,4 +20,16 @@ public class Cart {
     private double total;
     @OneToMany
     private List<CartItem> productsList;
+
+    public double calculateTotal(){
+
+        double total = 0;
+
+        for(CartItem item : productsList){
+            total += item.getTotalPrice();
+        }
+
+        return total;
+
+    }
 }

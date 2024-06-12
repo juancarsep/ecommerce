@@ -20,8 +20,6 @@ public class CartItem {
     @ManyToOne
     @JoinColumn(name = "cartID")
     private Cart cart;
-
-    @OneToOne
     private ProductDTO product;
     private int itemsTotal;
     private double totalPrice;

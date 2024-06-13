@@ -25,8 +25,7 @@ public class CartServiceImpl implements ICartService{
 
         //Carrito que voy a guardar
         Cart cart = new Cart();
-        //Item que voy a usar para iterar y guardar en el arraylist
-        CartItem item = new CartItem();
+
         //Arraylist que le seteo como items a el cart
         List<CartItem> cartItems = new ArrayList<>();
 
@@ -36,9 +35,10 @@ public class CartServiceImpl implements ICartService{
             //obtengo el producto
             ProductDTO product = productApi.getProduct(cartItem.getProductId());
 
+            CartItem item = new CartItem();
             item.setProductName(product.getName());
             item.setItemsTotal(cartItem.getItemsTotal());
-            item.setCart(cart);
+            item.setCartID(cart.getId());
             item.setProductId(product.getId());
             item.setTotalPrice(item.getItemsTotal() * product.getPrice());
             cartItems.add(item);

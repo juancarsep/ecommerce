@@ -16,10 +16,7 @@ public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
-    @ManyToOne
-    @JoinColumn(name = "cartID")
-    private Cart cart;
+    private Long cartID;
     private String productName;
     private Long productId;
     private int itemsTotal;

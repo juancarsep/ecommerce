@@ -55,6 +55,32 @@ public class CartServiceImpl implements ICartService{
     }
 
     @Override
+    public List<ProductDTO> getCartProducts(Long id) {
+
+        List<ProductDTO> products = new ArrayList<>();
+
+        Cart cart = this.getCart(id);
+
+        if(cart != null){
+
+            List<CartItem> cartItems = cart.getProductsList();
+
+            for(CartItem item : cartItems){
+
+                ProductDTO product = new ProductDTO();
+                product = productApi.getProduct(item.getProductId());
+                products.add(product);
+
+            }
+        }else{
+            System.out.println("Error, Cart with ID: " + id +  " does not exist");
+        }
+
+
+        return products;
+    }
+
+    @Override
     public void updateCart(Long id, Cart newCart) {
         Cart cart = this.getCart(id);
         if(cart != null){

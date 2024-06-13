@@ -21,20 +21,4 @@ public class CartItem {
     private int itemsTotal;
     private double totalPrice;
 
-
-  /*
-    public void addItem(){
-        this.itemsTotal += 1;
-        updatePrice();
-    }
-
-    public void removeItem(){
-        this.itemsTotal -= 1;
-        updatePrice();
-    }
-
-    public void updatePrice(){
-        this.totalPrice = itemsTotal * product.getPrice();
-    }
-    */
 }

@@ -1,6 +1,7 @@
 package ar.com.jics.shoppingCart_service.controller;
 
 import ar.com.jics.shoppingCart_service.dto.CartItemDTO;
+import ar.com.jics.shoppingCart_service.dto.ProductDTO;
 import ar.com.jics.shoppingCart_service.model.Cart;
 import ar.com.jics.shoppingCart_service.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,11 @@ public class CartController {
     public String deleteCart(@PathVariable Long id){
         service.deleteCart(id);
         return "Cart successfully deleted";
+    }
+
+    @GetMapping("/products/{id}")
+    public List<ProductDTO> getCartProducts(@PathVariable Long id){
+        return service.getCartProducts(id);
     }
 
 }

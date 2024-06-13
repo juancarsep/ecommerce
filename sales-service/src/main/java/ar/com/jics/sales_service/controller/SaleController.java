@@ -1,5 +1,6 @@
 package ar.com.jics.sales_service.controller;
 
+import ar.com.jics.sales_service.dto.SaleDTO;
 import ar.com.jics.sales_service.model.Sale;
 import ar.com.jics.sales_service.service.ISaleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class SaleController {
     }
 
     @GetMapping("/{id}")
-    public Sale getSaleById(@PathVariable Long id){
-        return service.getSale(id);
+    public SaleDTO getSaleById(@PathVariable Long id){
+        return service.getDetailedSale(id);
     }
 
     @PostMapping("/")

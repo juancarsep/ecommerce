@@ -1,10 +1,15 @@
 package ar.com.jics.sales_service.service;
 
+import ar.com.jics.sales_service.dto.CartDTO;
+import ar.com.jics.sales_service.dto.ProductDTO;
+import ar.com.jics.sales_service.dto.SaleDTO;
 import ar.com.jics.sales_service.model.Sale;
+import ar.com.jics.sales_service.repository.ICartClientApi;
 import ar.com.jics.sales_service.repository.ISaleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -12,6 +17,8 @@ public class SaleServiceImpl implements ISaleService{
 
     @Autowired
     ISaleRepository repo;
+    @Autowired
+    ICartClientApi cartApi;
 
     @Override
     public void saveSale(Sale sale) {
@@ -19,9 +26,11 @@ public class SaleServiceImpl implements ISaleService{
     }
 
     @Override
-    public Sale getSale(Long id) {
+    public Sale getSale(Long id){
         return repo.findById(id).orElse(null);
     }
+
+
 
     @Override
     public List<Sale> getAllSales() {
@@ -32,8 +41,8 @@ public class SaleServiceImpl implements ISaleService{
     public void updateSale(Long id, Sale newSale) {
         Sale sale = this.getSale(id);
         if(sale!=null){
-            sale.setProducts(newSale.getProducts());
-            sale.setTotal(newSale.getTotal());
+            sale.setDate(newSale.getDate());
+            sale.setCartId(newSale.getCartId());
             repo.save(sale);
         }else{
             System.out.println("The Sale with ID: " + id + " does not exist.");
@@ -43,5 +52,32 @@ public class SaleServiceImpl implements ISaleService{
     @Override
     public void deleteSale(Long id) {
         repo.deleteById(id);
+    }
+
+
+    private List<ProductDTO> getSaleProducts(Long id) {
+        Sale sale = this.getSale(id);
+        List<ProductDTO> products = new ArrayList<>();
+        if(sale != null){
+            products = cartApi.getCartProducts(id);
+        }
+
+        return products;
+    }
+
+
+    @Override
+    public SaleDTO getDetailedSale(Long id) {
+        Sale sale = this.getSale(id);
+        SaleDTO saleDto = new SaleDTO();
+        if(sale != null){
+            saleDto = new SaleDTO();
+            saleDto.setId(sale.getId());
+            saleDto.setDate(sale.getDate());
+            saleDto.setProducts(this.getSaleProducts(id));
+            saleDto.setCartId(sale.getCartId());
+            saleDto.setTotal(cartApi.getCartById(sale.getCartId()).getTotal());
+        }
+        return saleDto;
     }
 }

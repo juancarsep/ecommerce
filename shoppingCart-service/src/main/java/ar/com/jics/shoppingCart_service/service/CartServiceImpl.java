@@ -38,7 +38,6 @@ public class CartServiceImpl implements ICartService{
             CartItem item = new CartItem();
             item.setProductName(product.getName());
             item.setItemsTotal(cartItem.getItemsTotal());
-            item.setCartID(cart.getId());
             item.setProductId(product.getId());
             item.setTotalPrice(item.getItemsTotal() * product.getPrice());
             cartItems.add(item);

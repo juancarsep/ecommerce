@@ -2,10 +2,7 @@ package ar.com.jics.shoppingCart_service.model;
 
 import ar.com.jics.shoppingCart_service.dto.ProductDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
+@Builder
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -21,7 +19,7 @@ public class Cart {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> productsList;
 
-    public double calculateTotal(){
+  /*  public double calculateTotal(){
 
         double total = 0;
 
@@ -31,5 +29,8 @@ public class Cart {
 
         return total;
 
-    }
+    }*/
 }
+//Common model para guardar DTOs o entidades para producto e importarlo para no duplicar tanto producto
+//Actions de github
+//si ocurre una excepcion devuelva un json de excepcion con el codigo de status. Handle Error

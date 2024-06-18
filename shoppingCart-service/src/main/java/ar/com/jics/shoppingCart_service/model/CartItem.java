@@ -2,15 +2,13 @@ package ar.com.jics.shoppingCart_service.model;
 
 import ar.com.jics.shoppingCart_service.dto.ProductDTO;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
+@Builder
 public class CartItem {
 
     @Id

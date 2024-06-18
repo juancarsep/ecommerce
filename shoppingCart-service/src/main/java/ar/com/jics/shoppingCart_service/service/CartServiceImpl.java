@@ -26,10 +26,12 @@ public class CartServiceImpl implements ICartService{
         //Carrito que voy a guardar
         Cart cart = new Cart();
 
-        //Arraylist que le seteo como items a el cart
+        //liberia que permita no usar el new para crear listas
         List<CartItem> cartItems = new ArrayList<>();
 
 
+
+        //usar funciones lambda
         for(CartItemDTO cartItem : cartItemsDTO){
 
             //obtengo el producto
@@ -42,6 +44,10 @@ public class CartServiceImpl implements ICartService{
             item.setTotalPrice(item.getItemsTotal() * product.getPrice());
             cartItems.add(item);
             item = new CartItem();
+
+
+            // !!! CartItem.builder().productName(product.getName()).itemsTotal(product.getName()).build(); !!! crear en una sola nueva linea sin new.  !!!
+
         }
 
         cart.setProductsList(cartItems);

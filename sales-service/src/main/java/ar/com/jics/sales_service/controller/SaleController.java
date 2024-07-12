@@ -12,7 +12,7 @@ import java.util.List;
 public class SaleController {
 
     @Autowired
-    ISaleService service;
+    private ISaleService service;
 
     @GetMapping("/")
     public List<Sale> getAllSales(){
@@ -26,8 +26,14 @@ public class SaleController {
 
     @PostMapping("/")
     public String saveSale(@RequestBody Sale sale){
-        service.saveSale(sale);
-        return "Sale successfully saved";
+
+        try{
+            service.saveSale(sale);
+            return "Sale successfully saved";
+        }catch(Exception ex){
+            return "Failed to save sale: " + ex.getMessage();
+        }
+
     }
 
     @PutMapping("/{id}")

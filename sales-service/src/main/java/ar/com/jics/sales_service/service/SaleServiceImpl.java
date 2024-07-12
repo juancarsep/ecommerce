@@ -21,8 +21,14 @@ public class SaleServiceImpl implements ISaleService{
     ICartClientApi cartApi;
 
     @Override
-    public void saveSale(Sale sale) {
-        repo.save(sale);
+    public boolean saveSale(Sale sale) {
+        try{
+            repo.save(sale);
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
+
     }
 
     @Override

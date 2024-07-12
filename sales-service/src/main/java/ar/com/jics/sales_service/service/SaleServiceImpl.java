@@ -46,16 +46,13 @@ public class SaleServiceImpl implements ISaleService{
     @Override
     public boolean updateSale(Long id, Sale newSale) {
         Sale sale = this.getSale(id);
-        if(sale!=null){
-            try{
-                sale.setDate(newSale.getDate());
-                sale.setCartId(newSale.getCartId());
-                repo.save(sale);
-                return true;
-            }catch(Exception ex){
-                return false;
-            }
-
+        if(sale!=null) {
+            sale.setDate(newSale.getDate());
+            sale.setCartId(newSale.getCartId());
+            repo.save(sale);
+            return true;
+        }else{
+            return false;
         }
     }
 

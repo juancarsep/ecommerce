@@ -44,20 +44,29 @@ public class SaleServiceImpl implements ISaleService{
     }
 
     @Override
-    public void updateSale(Long id, Sale newSale) {
+    public boolean updateSale(Long id, Sale newSale) {
         Sale sale = this.getSale(id);
         if(sale!=null){
-            sale.setDate(newSale.getDate());
-            sale.setCartId(newSale.getCartId());
-            repo.save(sale);
-        }else{
-            System.out.println("The Sale with ID: " + id + " does not exist.");
+            try{
+                sale.setDate(newSale.getDate());
+                sale.setCartId(newSale.getCartId());
+                repo.save(sale);
+                return true;
+            }catch(Exception ex){
+                return false;
+            }
+
         }
     }
 
     @Override
-    public void deleteSale(Long id) {
-        repo.deleteById(id);
+    public boolean deleteSale(Long id) {
+        try{
+            repo.deleteById(id);
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
     }
 
 

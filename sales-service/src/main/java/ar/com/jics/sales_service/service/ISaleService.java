@@ -10,7 +10,7 @@ public interface ISaleService {
     public boolean saveSale(Sale sale);
     public Sale getSale(Long id);
     public List<Sale> getAllSales();
-    public void updateSale(Long id, Sale sale);
-    public void deleteSale(Long id);
+    public boolean updateSale(Long id, Sale sale);
+    public boolean deleteSale(Long id);
     public SaleDTO getDetailedSale(Long id);
 }

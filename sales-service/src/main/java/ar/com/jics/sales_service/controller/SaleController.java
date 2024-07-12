@@ -25,27 +25,40 @@ public class SaleController {
     }
 
     @PostMapping("/")
-    public String saveSale(@RequestBody Sale sale){
+    public String saveSale(@RequestBody Sale sale) {
 
-        try{
-            service.saveSale(sale);
+
+        boolean isSaved = service.saveSale(sale);
+
+        if (isSaved) {
             return "Sale successfully saved";
-        }catch(Exception ex){
-            return "Failed to save sale: " + ex.getMessage();
+        } else {
+            return "Failed to save sale";
         }
-
     }
 
     @PutMapping("/{id}")
     public String updateSale(@PathVariable Long id,
                              @RequestBody Sale sale){
-        service.updateSale(id, sale);
-        return "Sale successfully updated";
+        boolean isUpdated = service.updateSale(id, sale);
+        if(isUpdated){
+            return "Sale successfully updated";
+        }else{
+            return "Failed to update sale";
+
+        }
     }
 
     @DeleteMapping("/{id}")
     public String deleteSale(@PathVariable Long id){
-        service.deleteSale(id);
-        return "Sale successfully deleted";
+        boolean isDeleted = service.deleteSale(id);
+
+        if(isDeleted){
+            return "Sale successfully deleted";
+        }else{
+            return "Failed to delete sale";
+        }
+
+
     }
 }

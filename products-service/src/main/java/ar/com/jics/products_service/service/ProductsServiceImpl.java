@@ -14,8 +14,13 @@ public class ProductsServiceImpl implements IProductsServie{
     IProductRepository repo;
 
     @Override
-    public void saveProduct(Product prod) {
-        repo.save(prod);
+    public boolean saveProduct(Product prod) {
+        try{
+            repo.save(prod);
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
     }
 
     @Override
@@ -29,21 +34,28 @@ public class ProductsServiceImpl implements IProductsServie{
     }
 
     @Override
-    public void updateProduct(Long id, Product prod) {
+    public boolean updateProduct(Long id, Product prod) {
         Product product = this.getProductById(id);
         if(product != null){
             product.setName(prod.getName());
             product.setBrand(prod.getBrand());
             product.setPrice(prod.getPrice());
             repo.save(product);
+            return true;
         }else{
-            System.out.println("An error has occurred: Product with ID " + id + " Does not exist");
+            return false;
         }
     }
 
     @Override
-    public void deleteProductById(Long id) {
-        repo.deleteById(id);
+    public boolean deleteProductById(Long id) {
+        try{
+            repo.deleteById(id);
+            return true;
+        }catch(Exception ex){
+            return false;
+        }
+
     }
 
     @Override

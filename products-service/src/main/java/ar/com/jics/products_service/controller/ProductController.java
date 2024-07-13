@@ -21,9 +21,9 @@ public class ProductController {
     public ResponseEntity<String> saveProduct(@RequestBody Product product){
         boolean success = service.saveProduct(product);
         if(success){
-            return new ResponseEntity<>("Product successfully saved", HttpStatus.CREATED);
+            return ResponseEntity.status(HttpStatus.CREATED).body("Product successfully saved");
         }else{
-            return new ResponseEntity<>("Failed to save product", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Failed to save product");
         }
     }
 
@@ -31,9 +31,9 @@ public class ProductController {
     public ResponseEntity<List<Product>> getAllProducts(){
         List<Product> products = service.getAllProducts();
         if(products != null){
-            return new ResponseEntity<>(products, HttpStatus.OK);
+            return ResponseEntity.ok(products);
         }else{
-            return new ResponseEntity<>(products, HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
@@ -43,9 +43,9 @@ public class ProductController {
         Product product = service.getProductById(id);
 
         if(product != null){
-            return new ResponseEntity<>(product, HttpStatus.OK);
+            return  ResponseEntity.ok(product);
         }else{
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
@@ -55,9 +55,9 @@ public class ProductController {
         List<Product> products = service.getProductByName(name);
 
         if(products != null){
-            return new ResponseEntity<>(products, HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body(products);
         }else{
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
     }
@@ -68,9 +68,9 @@ public class ProductController {
         List<Product> products = service.getProductByBrand(brand);
 
         if(products != null){
-            return new ResponseEntity<>(products, HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body(products);
         }else{
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
     }
 
@@ -79,20 +79,19 @@ public class ProductController {
                                 @RequestBody Product newProduct){
         boolean success = service.updateProduct(id, newProduct);
         if(success){
-            return new ResponseEntity<>("Product successfully updated", HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body("Product successfully updated");
         }else{
-            return new ResponseEntity<>("Failed to update product", HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update product");
         }
-
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteProduct(@PathVariable Long id){
         boolean success = service.deleteProductById(id);
         if(success){
-            return new ResponseEntity<>("Product successfully deleted", HttpStatus.OK);
+            return ResponseEntity.status(HttpStatus.OK).body("Product successfully deleted");
         }else{
-            return new ResponseEntity<>("Failed to delete product", HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete product");
         }
     }
 

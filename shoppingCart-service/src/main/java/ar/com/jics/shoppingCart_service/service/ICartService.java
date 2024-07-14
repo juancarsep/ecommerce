@@ -7,9 +7,9 @@ import ar.com.jics.shoppingCart_service.model.Cart;
 import java.util.List;
 
 public interface ICartService {
-    public void saveCart(List<CartItemDTO> cartItemsDTO);
-    public void deleteCart(Long id);
-    public void updateCart(Long id, Cart cart);
+    public boolean saveCart(List<CartItemDTO> cartItemsDTO);
+    public boolean deleteCart(Long id);
+    public boolean updateCart(Long id, Cart cart);
     public Cart getCart(Long id);
     public List<ProductDTO> getCartProducts(Long id);
 }

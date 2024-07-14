@@ -21,38 +21,40 @@ public class CartServiceImpl implements ICartService{
     IProductClientApi productApi;
 
     @Override
-    public void saveCart(List<CartItemDTO> cartItemsDTO) {
+    public boolean saveCart(List<CartItemDTO> cartItemsDTO) {
 
-        //Carrito que voy a guardar
-        Cart cart = new Cart();
+        try{
+            //Carrito que voy a guardar
+            Cart cart = new Cart();
 
-        //liberia que permita no usar el new para crear listas
-        List<CartItem> cartItems = new ArrayList<>();
+            //liberia que permita no usar el new para crear listas
+            List<CartItem> cartItems = new ArrayList<>();
 
+            //usar funciones lambda
+            for(CartItemDTO cartItem : cartItemsDTO){
 
+                //obtengo el producto
+                ProductDTO product = productApi.getProduct(cartItem.getProductId());
 
-        //usar funciones lambda
-        for(CartItemDTO cartItem : cartItemsDTO){
+                CartItem item = new CartItem();
 
-            //obtengo el producto
-            ProductDTO product = productApi.getProduct(cartItem.getProductId());
+                // !!! CartItem.builder().productName(product.getName()).itemsTotal(product.getName()).build(); !!! crear en una sola nueva linea sin new.  !!!
+                item.setProductName(product.getName());
+                item.setItemsTotal(cartItem.getItemsTotal());
+                item.setProductId(product.getId());
+                item.setTotalPrice(item.getItemsTotal() * product.getPrice());
 
-            CartItem item = new CartItem();
-            item.setProductName(product.getName());
-            item.setItemsTotal(cartItem.getItemsTotal());
-            item.setProductId(product.getId());
-            item.setTotalPrice(item.getItemsTotal() * product.getPrice());
-            cartItems.add(item);
-            item = new CartItem();
+                cartItems.add(item);
 
-
-            // !!! CartItem.builder().productName(product.getName()).itemsTotal(product.getName()).build(); !!! crear en una sola nueva linea sin new.  !!!
-
+                item = new CartItem();
+            }
+            cart.setProductsList(cartItems);
+            cart.setTotal(cart.calculateTotal());
+            repo.save(cart);
+            return true;
+        }catch (Exception ex){
+            return false;
         }
-
-        cart.setProductsList(cartItems);
-        cart.setTotal(cart.calculateTotal());
-        repo.save(cart);
     }
 
     @Override
@@ -87,21 +89,25 @@ public class CartServiceImpl implements ICartService{
     }
 
     @Override
-    public void updateCart(Long id, Cart newCart) {
+    public boolean updateCart(Long id, Cart newCart) {
         Cart cart = this.getCart(id);
         if(cart != null){
             cart.setTotal(newCart.getTotal());
             cart.setProductsList(newCart.getProductsList());
             repo.save(cart);
+            return true;
         }else{
-            System.out.println("Error, Cart with ID: " + id + " does not exist");
+            return false;
         }
     }
 
     @Override
-    public void deleteCart(Long id) {
-        repo.deleteById(id);
+    public boolean deleteCart(Long id) {
+        try{
+            repo.deleteById(id);
+            return true;
+        }catch (Exception ex){
+            return false;
+        }
     }
-
-
 }

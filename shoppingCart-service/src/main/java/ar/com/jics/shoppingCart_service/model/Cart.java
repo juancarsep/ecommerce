@@ -19,7 +19,7 @@ public class Cart {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CartItem> productsList;
 
-  /*  public double calculateTotal(){
+    public double calculateTotal(){
 
         double total = 0;
 
@@ -29,7 +29,7 @@ public class Cart {
 
         return total;
 
-    }*/
+    }
 }
 //Common model para guardar DTOs o entidades para producto e importarlo para no duplicar tanto producto
 //Actions de github
